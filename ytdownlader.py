@@ -7,7 +7,7 @@ from pytube.cli import on_progress
 fuchsia = '\033[38;2;255;00;255m'  # color as hex #FF00FF
 reset_color = '\033[39m'
 
-import progressbar as progress_function
+import progressbar as on_progress
 
 downloads_path = str(Path.home() / "Downloads")
 
@@ -71,5 +71,6 @@ try:
         exit()
     else:
         print('please enter the correct argument ')
-except SyntaxError as e:
+   
+except Exception as e:
     print("An error occured : ",e)

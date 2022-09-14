@@ -1,6 +1,5 @@
 from pytube import YouTube
 from pathlib import Path
-from youtube_dl import YoutubeDL
 import os
 from pytube.cli import on_progress
 
@@ -17,7 +16,7 @@ str = input("Enter \n 'a' for audio downlaoder   \n 'v' for video downloader  \n
 class Youtubeaud:
     def __init__(self):
 
-        print("WELCOME TO THE YOUTUBE VIDEO DOWNLOADER")
+        print("WELCOME TO THE YOUTUBE Audio DOWNLOADER")
         ytlink=input("Enter the youtube link ->\npaste here : ")
         print("***********Youtube audio downloader***************")
         yt = YouTube(ytlink,on_progress_callback=on_progress)
@@ -25,19 +24,15 @@ class Youtubeaud:
         print("Views : ", yt.views)
         print("Author Name : ",yt.author)
         print("length : ", yt.length, "seconds")
-        #yt.register_on_progress_callback(progress_function)
         print(f'\n' + fuchsia + 'Downloading: ', yt.title, '~ viewed', yt.views,
               'times.')
         yd=yt.streams.get_by_itag(251)
         download=yd.download(downloads_path)
         print('your file is downloading.........')
         base,ext=os.path.splitext(download)
-        newfile=base +'.mp3'
+        newfile=base +'.m4a'
         os.rename(download,newfile)
         print("Download completed\n")
-
-
-
 class Youtubevid:
         def __init__(self):
 
@@ -53,10 +48,8 @@ class Youtubevid:
             print("You can minimize this window")
             print(f'\n' + fuchsia + 'Downloading: ', yt.title, '~ viewed', yt.views,
                   'times.')
-            #yt.register_on_progress_callback(progress_function)
-            yd = yt.streams.get_by_itag(22)
-            yf=YoutubeDL({'format':''})
-            yd.download('D:\downloads')
+            yd = yt.streams.get_highest_resolution()
+            yd.download(downloads_path)
             print("Download completed\n","located at ",downloads_path)
 
 
@@ -71,6 +64,6 @@ try:
         exit()
     else:
         print('please enter the correct argument ')
-   
+
 except Exception as e:
     print("An error occured : ",e)
